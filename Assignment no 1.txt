@@ -1,0 +1,208 @@
+//OPEN HASHING : '
+
+#include<stdio.h>
+#include<conio.h>
+
+
+
+struct Node{
+	int value;
+	struct Node *next;
+};
+
+struct Node *arr[10];
+
+void Openhashing(){
+	int i;
+	for(i=0;i<10;i++){
+
+		struct Node *ptr=(struct Node*)malloc(sizeof(struct Node));
+		ptr->next=NULL;
+
+		printf("Enter The Value U Want to Insert [%d]: ",i);
+		scanf("%d",&ptr->value);
+
+		int index=(ptr->value)%10;
+
+		if(arr[index]==NULL){
+			arr[index]=ptr;
+
+		}else{
+			struct Node *curr=arr[index];
+			while(curr->next!=NULL){
+
+				curr=curr->next;
+			}
+
+			curr->next=ptr;
+		}
+
+	}
+
+
+}
+
+
+void print(){
+	int i;
+	for(i=0;i<10;i++){
+		printf("\n VALUE At : [%d]",i);
+		struct Node *curr=arr[i];
+		while(curr!=NULL){
+			printf("->%d",curr->value);
+			curr=curr->next;
+		}
+	}
+
+}
+
+
+int main(int argc, char *argv[])
+{
+	Openhashing();
+	print();
+	return 0;
+}
+
+====================================================================================================================================================================
+// LINEAR PROBING : 
+
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+
+int arr[10];
+int count=0;
+int size=10;
+
+void LinearProbing(int value){
+	int Key=value%10;
+
+	if(count==size){
+		printf("array is full.\n");
+
+	}else if(arr[Key]==0){
+		arr[Key]=value;
+		count++;
+		printf("value inserted at : %d no values inserted in the array = %d \n \n", Key,count );
+	}else{
+
+
+		int increment=Key+1;
+		int Newkey;
+		if(Key==size-1){
+			increment=0;
+		}
+		for(Newkey=increment;Newkey!=Key;Newkey++){
+			if(arr[Newkey]==0){
+				arr[Newkey]=value;
+				count++;
+                printf("value inserted at : %d no values inserted in the array = %d \n \n", Newkey,count );
+				break;
+			}
+		}
+
+
+	}
+
+}
+void printlinear()
+{
+	int i;
+	for(i=0;i<size;i++)
+        {
+		printf("arr[%d]: %d \n \n",i,arr[i]);
+        }
+
+}
+
+//MAIN METHDOD :
+int main()
+{
+
+for(int i = 0 ; i<10 ; i++)
+    {
+        int value;
+        printf("enter the value u want to insert : ");
+        scanf("%d",&value);
+        printf("\n");
+
+        LinearProbing(value);
+
+
+       
+        
+        
+
+    }
+	printlinear();
+    	return 0;
+    }
+
+
+=======================================================================================================================================================
+//QUADRATIC PROBING : 
+
+int data[10];
+int count=0;
+int Totallength=10;
+
+ void QuadraticProbing(int value){
+	int Key=value%Totallength;
+    if(data[Key]==0)
+        {
+		data[Key]=value;
+        printf("Value inserted at index : %d \n \n ",Key);
+		count++;
+
+        }
+	else{
+		int i;
+		for(i=0;i<=Totallength - 1;i++){
+
+			int Newkey=(Key+(i*i))%10;
+			if(data[Newkey]==0){
+				data[Newkey]=value;
+				printf("Value inserted at index:%d \n \n",Newkey);
+				count++;
+				break;
+			}
+		}
+
+	}
+
+}
+void printquadratic()
+{
+	int i;
+	for(i=0;i<Totallength;i++)
+        {
+		printf("arr[%d]: %d \n \n",i,data[i]);
+        }
+
+}
+
+//MAIN METHOD :
+
+int main()
+{
+
+for(int i = 0 ; i<10 ; i++)
+    {
+        int value;
+        printf("enter the value u want to insert : ");
+        scanf("%d",&value);
+        printf("\n");
+
+        QuadraticProbing(value);
+
+
+       
+        
+        
+
+    }
+	printquadratic();
+    	return 0;
+    }
+
